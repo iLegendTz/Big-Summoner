@@ -9,7 +9,7 @@ export const useMatches = () => {
     const [matchesList, setMatchesList] = useState<MatchResponse[]>([])
 
     const loadMatches = async (puuid: string, server: Server) => {
-        const count = 20;
+        const count = 2;
         setIsLoading(true);
         addBaseUrlToApi(server.regionalRouting.host)
         await riotApi.get<string[]>(`/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=${count}`)
@@ -23,7 +23,7 @@ export const useMatches = () => {
         setMatchesList([])
         for (const matchId of matchesIdList) {
             await riotApi.get<MatchResponse>(`/lol/match/v5/matches/${matchId}`)
-                .then((resp) => { setMatchesList((old) => [...old, resp.data]); console.log("hola") })
+                .then((resp) => { setMatchesList((old) => [...old, resp.data]); })
                 .catch((error) => console.log(error))
         }
         setIsLoading(false);
