@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { SearchSummonerScreen } from '../screens/SearchSummonerScreen';
 import { SummonerMatchesScreen } from '../screens/SummonerMatchesScreen';
+import { lightTheme } from '../themes/appTheme';
 
 const Stack = createStackNavigator();
 
@@ -11,9 +12,7 @@ export const Navigator = () => {
         <Stack.Navigator
             screenOptions={{
                 headerShown: false,
-                cardStyle: {
-                    backgroundColor: 'white'
-                }
+                cardStyle: { backgroundColor: lightTheme.colors.background }
             }}
         >
             <Stack.Screen name="SearchSummonerScreen" component={SearchSummonerScreen} />

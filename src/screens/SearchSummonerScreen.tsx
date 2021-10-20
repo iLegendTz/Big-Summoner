@@ -5,7 +5,7 @@ import { Picker } from '@react-native-picker/picker';
 import { StackScreenProps } from '@react-navigation/stack';
 
 import { SummonerContext } from '../context/SummonerContext';
-import { styles } from '../themes/appTheme';
+import { styles, lightTheme } from '../themes/appTheme';
 import { useForm } from '../hooks/useForm';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Server } from '../interfaces/Summoner';
@@ -35,7 +35,7 @@ export const SearchSummonerScreen = ({ navigation }: Props) => {
 
     return (
         <KeyboardAvoidingView
-            style={styles.container}
+            style={{ ...styles.container, backgroundColor: lightTheme.colors.background }}
             behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
             <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
@@ -44,8 +44,7 @@ export const SearchSummonerScreen = ({ navigation }: Props) => {
                 }}>
                     <TextInput
                         placeholder="Summonername"
-                        placeholderTextColor="rgba(0,0,0,0.3)"
-                        underlineColorAndroid="rgba(0,0,0,0.1)"
+                        placeholderTextColor={lightTheme.colors.onBackground}
                         style={loginStyles.inputField}
                         selectionColor="black"
                         autoCapitalize='none'
@@ -53,20 +52,22 @@ export const SearchSummonerScreen = ({ navigation }: Props) => {
                         onChangeText={(text) => onChange(text, 'summonerName')}
                         value={summonerName}
                     />
+                    <View style={{ borderRadius: 25, overflow: 'hidden', borderWidth: 1, }}>
+                        <Picker
+                            selectedValue={platformRoutingHost}
+                            onValueChange={(itemValue) => {
+                                onChange(itemValue, 'server');
+                                setPlatformRoutingHost(itemValue);
+                            }}
+                            style={loginStyles.picker}>
+                            {
+                                routingValues.map(({ platformRouting: { host, platform, prefix } }) => (
+                                    <Picker.Item key={platform} label={prefix} value={host} />
+                                ))
+                            }
 
-                    <Picker
-                        selectedValue={platformRoutingHost}
-                        onValueChange={(itemValue) => {
-                            onChange(itemValue, 'server');
-                            setPlatformRoutingHost(itemValue);
-                        }}>
-                        {
-                            routingValues.map(({ platformRouting: { host, platform, prefix } }) => (
-                                <Picker.Item key={platform} label={prefix} value={host} />
-                            ))
-                        }
-
-                    </Picker>
+                        </Picker>
+                    </View>
 
                     <TouchableOpacity
                         activeOpacity={0.8}
@@ -83,22 +84,30 @@ export const SearchSummonerScreen = ({ navigation }: Props) => {
 
 const loginStyles = StyleSheet.create({
     inputField: {
-        color: 'black',
+        color: lightTheme.colors.onBackground,
+        backgroundColor: lightTheme.colors.background,
         borderRadius: 10,
         borderWidth: 1,
         fontSize: 16,
+        marginBottom: 20,
+
+        elevation: 2,
+    },
+    picker: {
+        color: lightTheme.colors.onSurface,
+        backgroundColor: lightTheme.colors.surface,
+        marginTop: 5,
     },
     button: {
         marginTop: 20,
         alignSelf: 'center',
-        borderWidth: 2,
         borderRadius: 20,
-        backgroundColor: "rgba(210,42,55,0.8)",
-        borderColor: "rgb(210,42,55)",
+        backgroundColor: lightTheme.colors.primary,
     },
     textButton: {
-        color: 'white',
+        color: lightTheme.colors.onPrimary,
         fontSize: 20,
         margin: 10,
+        padding: 2,
     }
 })
