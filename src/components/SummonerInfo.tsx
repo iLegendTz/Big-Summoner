@@ -30,8 +30,10 @@ const styles = StyleSheet.create({
         height: 'auto',
         flexDirection: 'row',
         padding: 20,
+        marginBottom: 20,
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
+        elevation: 1,
     },
     summonerInfoContainer: {
         flex: 1,

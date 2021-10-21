@@ -7,6 +7,7 @@ import { Item } from './Item';
 import { Rune } from './Rune';
 import { Summoner } from '../interfaces/Summoner';
 import { MatchResponse, Participant } from '../interfaces/Match';
+import { lightTheme } from '../themes/appTheme';
 
 interface Props {
     summoner: Summoner;
@@ -28,15 +29,19 @@ export const MatchPreview = ({ match, summoner }: Props) => {
     return (
         (participant !== undefined)
             ?
-            <View>
-                <View style={{ backgroundColor: 'blue', flexDirection: 'row' }}>
+            <TouchableOpacity
+                activeOpacity={0.7}
+                style={styles.container}
+                onPress={() => { console.log(match.info.gameId) }}
+            >
+                <View style={{ flexDirection: 'row' }}>
                     {/* Champion image */}
                     <Image
                         style={styles.champIcon}
                         source={{ uri: `${baseURL}/image/champion/${participant.championName}.png` }}
                     />
                     {/* Spells & Runes */}
-                    <View style={{ marginLeft: 4, flexDirection: 'row' }}>
+                    <View style={{ marginHorizontal: 4, flexDirection: 'row' }}>
                         {/* Spells */}
                         <View>
                             <Spell spellKey={participant.summoner1Id} />
@@ -50,7 +55,7 @@ export const MatchPreview = ({ match, summoner }: Props) => {
                     </View>
 
                     {/* KDA */}
-                    <Text style={styles.label}>
+                    <Text style={{ ...styles.label, marginLeft: 10 }}>
                         {participant.kills}/{participant.deaths}/{participant.assists}
                     </Text>
                 </View>
@@ -66,7 +71,8 @@ export const MatchPreview = ({ match, summoner }: Props) => {
                         participant.item5,
                         participant.item6]}
                     renderItem={({ item }) => (<Item itemId={item} />)} />
-            </View>
+            </TouchableOpacity>
+
             :
             <ActivityIndicator
                 style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
@@ -76,14 +82,26 @@ export const MatchPreview = ({ match, summoner }: Props) => {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        padding: 10,
+        shadowColor: lightTheme.colors.onSurface,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 1,
+    },
     champIcon: {
         width: 50,
         height: 50,
-        borderRadius: 50,
+        borderRadius: 25,
         marginBottom: 5,
     },
     label: {
         fontSize: 15,
-        color: 'white'
+        color: lightTheme.colors.onSurface
     }
 });

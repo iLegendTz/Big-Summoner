@@ -32,25 +32,27 @@ export const SummonerMatchesScreen = () => {
     return (
         (isLoading == false && summoner != null)
             ?
-            <View style={stylesGlobal.container}>
+            <>
                 <SummonerInfo summoner={summoner} />
 
-                {/* Matches */}
-                <FlatList
-                    data={matchesList}
-                    renderItem={({ item }) => (
-                        < MatchPreview match={item} summoner={summoner} />
-                    )}
-                    keyExtractor={(item) => item.info.gameId.toString()}
+                <View style={stylesGlobal.container}>
+                    {/* Matches */}
+                    <FlatList
+                        data={matchesList}
+                        renderItem={({ item }) => (
+                            < MatchPreview match={item} summoner={summoner} />
+                        )}
+                        keyExtractor={(item) => item.info.gameId.toString()}
 
-                    ItemSeparatorComponent={() => (
-                        <View
-                            style={{
-                                marginBottom: 10,
-                            }}
-                        />)}
-                />
-            </View>
+                        ItemSeparatorComponent={() => (
+                            <View
+                                style={{
+                                    marginBottom: 10,
+                                }}
+                            />)}
+                    />
+                </View>
+            </>
             :
             <ActivityIndicator
                 style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
@@ -58,10 +60,3 @@ export const SummonerMatchesScreen = () => {
             />
     )
 }
-
-const styles = StyleSheet.create({
-    label: {
-        fontSize: 20,
-        color: 'white',
-    }
-})

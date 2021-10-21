@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Image, ImageStyle, StyleProp, StyleSheet, View } from 'react-native'
 import { baseURL } from '../api/dataDragonApi';
 import { useRune } from '../hooks/useRune';
+import { lightTheme } from '../themes/appTheme';
 
 interface Props {
     runeId: number,
@@ -32,8 +33,9 @@ const styles = StyleSheet.create({
     rune: {
         width: 25,
         height: 25,
-        backgroundColor: 'black',
+        backgroundColor: lightTheme.colors.onBackground,
         marginRight: 2.5,
         borderRadius: 50,
+        marginBottom: 2.5,
     }
 })
