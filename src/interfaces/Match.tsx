@@ -8,6 +8,7 @@ export interface MatchResponse {
 export interface Info {
     gameCreation: number;
     gameDuration: number;
+    gameEndTimestamp: number;
     gameId: number;
     gameMode: string;
     gameName: string;
@@ -48,7 +49,7 @@ export interface Participant {
     gameEndedInSurrender: boolean;
     goldEarned: number;
     goldSpent: number;
-    individualPosition: IndividualPosition;
+    individualPosition: string;
     inhibitorKills: number;
     inhibitorTakedowns: number;
     inhibitorsLost: number;
@@ -62,7 +63,7 @@ export interface Participant {
     itemsPurchased: number;
     killingSprees: number;
     kills: number;
-    lane: Lane;
+    lane: string;
     largestCriticalStrike: number;
     largestKillingSpree: number;
     largestMultiKill: number;
@@ -87,7 +88,7 @@ export interface Participant {
     quadraKills: number;
     riotIdName: string;
     riotIdTagline: string;
-    role: Role;
+    role: string;
     sightWardsBoughtInGame: number;
     spell1Casts: number;
     spell2Casts: number;
@@ -130,14 +131,6 @@ export interface Participant {
     win: boolean;
 }
 
-export enum IndividualPosition {
-    Invalid = "Invalid",
-}
-
-export enum Lane {
-    None = "NONE",
-}
-
 export interface Perks {
     statPerks: StatPerks;
     styles: Style[];
@@ -167,15 +160,16 @@ export interface Selection {
     var3: number;
 }
 
-export enum Role {
-    Support = "SUPPORT",
-}
-
 export interface Team {
-    bans: any[];
+    bans: Ban[];
     objectives: Objectives;
     teamId: number;
     win: boolean;
+}
+
+export interface Ban {
+    championId: number;
+    pickTurn: number;
 }
 
 export interface Objectives {
