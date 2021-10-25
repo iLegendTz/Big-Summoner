@@ -9,7 +9,7 @@ export const useMatches = () => {
     const [matchesList, setMatchesList] = useState<MatchResponse[]>([])
 
     const loadMatches = async (puuid: string, server: Server) => {
-        const count = 2;
+        const count = 10;
         setIsLoading(true);
         addBaseUrlToApi(server.regionalRouting.host)
         await riotApi.get<string[]>(`/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=${count}`)

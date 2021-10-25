@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, Text, TouchableOpacity, View, StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 
 import { baseURL } from '../api/dataDragonApi';
@@ -17,6 +17,12 @@ interface Props {
 export const MatchPreview = ({ match, summoner }: Props) => {
     const [participant, setParticipant] = useState<Participant>();
 
+    const [matchCreationDate, setMatchCreationDate] = useState("hola");
+
+    useEffect(() => {
+        const date = new Date(match.info.gameEndTimestamp);
+        setMatchCreationDate(date.toLocaleDateString());
+    }, [])
 
     useEffect(() => {
         match.info.participants.map((value) => {
@@ -31,7 +37,6 @@ export const MatchPreview = ({ match, summoner }: Props) => {
             ?
             <TouchableOpacity
                 activeOpacity={0.7}
-                style={styles.container}
                 onPress={() => { console.log(match.info.gameId) }}
             >
                 <View style={{ flexDirection: 'row' }}>
@@ -58,6 +63,13 @@ export const MatchPreview = ({ match, summoner }: Props) => {
                     <Text style={{ ...styles.label, marginLeft: 10 }}>
                         {participant.kills}/{participant.deaths}/{participant.assists}
                     </Text>
+
+                    {/* Win */}
+                    <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                        <Text style={{ ...styles.label }}>{(participant.win) ? "Victory" : "Lose"}</Text>
+                        <Text style={styles.label}>{matchCreationDate}</Text>
+                    </View>
+
                 </View>
                 {/* Items */}
                 <FlatList
@@ -72,7 +84,6 @@ export const MatchPreview = ({ match, summoner }: Props) => {
                         participant.item6]}
                     renderItem={({ item }) => (<Item itemId={item} />)} />
             </TouchableOpacity>
-
             :
             <ActivityIndicator
                 style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
@@ -84,14 +95,6 @@ export const MatchPreview = ({ match, summoner }: Props) => {
 const styles = StyleSheet.create({
     container: {
         padding: 10,
-        shadowColor: lightTheme.colors.onSurface,
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-
         elevation: 1,
     },
     champIcon: {

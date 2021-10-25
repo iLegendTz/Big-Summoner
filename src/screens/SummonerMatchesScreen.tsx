@@ -5,7 +5,7 @@ import { MatchPreview } from '../components/MatchPreview';
 import { SummonerInfo } from '../components/SummonerInfo';
 import { SummonerContext } from '../context/SummonerContext';
 import { useMatches } from '../hooks/useMatches';
-import { styles as stylesGlobal } from '../themes/appTheme';
+import { styles as stylesGlobal, lightTheme } from '../themes/appTheme';
 
 
 export const SummonerMatchesScreen = () => {
@@ -39,6 +39,7 @@ export const SummonerMatchesScreen = () => {
                     {/* Matches */}
                     <FlatList
                         data={matchesList}
+                        showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => (
                             < MatchPreview match={item} summoner={summoner} />
                         )}
@@ -47,9 +48,16 @@ export const SummonerMatchesScreen = () => {
                         ItemSeparatorComponent={() => (
                             <View
                                 style={{
-                                    marginBottom: 10,
+                                    flex: 1,
+                                    height: 1,
+                                    backgroundColor: lightTheme.colors.onSurface,
+                                    marginVertical: 10,
                                 }}
                             />)}
+
+                        ListFooterComponent={() => (
+                            <View style={{ paddingBottom: 20 }} />
+                        )}
                     />
                 </View>
             </>
