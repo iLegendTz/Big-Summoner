@@ -8,16 +8,18 @@ import { Rune } from './Rune';
 import { Summoner } from '../interfaces/Summoner';
 import { MatchResponse, Participant } from '../interfaces/Match';
 import { lightTheme } from '../themes/appTheme';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParams } from '../navigator/Navigator';
 
-interface Props {
+interface Props extends StackScreenProps<RootStackParams, 'SummonerMatchesScreen'> {
     summoner: Summoner;
     match: MatchResponse;
 }
 
-export const MatchPreview = ({ match, summoner }: Props) => {
+export const MatchPreview = ({ match, summoner, navigation }: Props) => {
     const [participant, setParticipant] = useState<Participant>();
 
-    const [matchCreationDate, setMatchCreationDate] = useState("hola");
+    const [matchCreationDate, setMatchCreationDate] = useState("");
 
     useEffect(() => {
         const date = new Date(match.info.gameEndTimestamp);
@@ -37,7 +39,7 @@ export const MatchPreview = ({ match, summoner }: Props) => {
             ?
             <TouchableOpacity
                 activeOpacity={0.7}
-                onPress={() => { console.log(match.info.gameId) }}
+                onPress={() => { navigation.navigate('MatchScreen', { match: match }) }}
             >
                 <View style={{ flexDirection: 'row' }}>
                     {/* Champion image */}

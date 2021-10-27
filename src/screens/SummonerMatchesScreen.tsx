@@ -1,3 +1,4 @@
+import { StackScreenProps } from '@react-navigation/stack';
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Image, Text, View, StyleSheet, ScrollView, FlatList } from 'react-native';
 
@@ -5,10 +6,12 @@ import { MatchPreview } from '../components/MatchPreview';
 import { SummonerInfo } from '../components/SummonerInfo';
 import { SummonerContext } from '../context/SummonerContext';
 import { useMatches } from '../hooks/useMatches';
+import { RootStackParams } from '../navigator/Navigator';
 import { styles as stylesGlobal, lightTheme } from '../themes/appTheme';
 
+interface Props extends StackScreenProps<RootStackParams, 'SummonerMatchesScreen'> { }
 
-export const SummonerMatchesScreen = () => {
+export const SummonerMatchesScreen = ({ navigation, route }: Props) => {
     const { summoner, server, removeSummoner } = useContext(SummonerContext);
 
     const { isLoading, loadMatches, matchesList } = useMatches();
@@ -25,7 +28,7 @@ export const SummonerMatchesScreen = () => {
 
     useEffect(() => {
         return () => {
-            removeSummoner();
+            //removeSummoner();
         }
     }, [])
 
@@ -41,7 +44,7 @@ export const SummonerMatchesScreen = () => {
                         data={matchesList}
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => (
-                            < MatchPreview match={item} summoner={summoner} />
+                            < MatchPreview match={item} summoner={summoner} navigation={navigation} route={route} />
                         )}
                         keyExtractor={(item) => item.info.gameId.toString()}
 
