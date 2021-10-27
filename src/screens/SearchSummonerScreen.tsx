@@ -30,7 +30,7 @@ export const SearchSummonerScreen = ({ navigation }: Props) => {
             }
         });
         Keyboard.dismiss();
-        navigation.navigate('SummonerMatchesScreen');
+        navigation.navigate('MatchesScreen');
     }
 
     return (

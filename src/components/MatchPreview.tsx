@@ -11,7 +11,7 @@ import { lightTheme } from '../themes/appTheme';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParams } from '../navigator/Navigator';
 
-interface Props extends StackScreenProps<RootStackParams, 'SummonerMatchesScreen'> {
+interface Props extends StackScreenProps<RootStackParams, 'MatchesScreen'> {
     summoner: Summoner;
     match: MatchResponse;
 }

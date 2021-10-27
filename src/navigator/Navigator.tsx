@@ -2,14 +2,14 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { SearchSummonerScreen } from '../screens/SearchSummonerScreen';
-import { SummonerMatchesScreen } from '../screens/SummonerMatchesScreen';
+import { MatchesScreen } from '../screens/MatchesScreen';
 import { lightTheme } from '../themes/appTheme';
 import { MatchResponse } from '../interfaces/Match';
 import { MatchScreen } from '../screens/MatchScreen';
 
 export type RootStackParams = {
     SearchSummonerScreen: undefined,
-    SummonerMatchesScreen: undefined,
+    MatchesScreen: undefined,
     MatchScreen: { match: MatchResponse }
 }
 
@@ -26,7 +26,7 @@ export const Navigator = () => {
         >
             <Stack.Screen name="MatchScreen" component={MatchScreen} />
             <Stack.Screen name="SearchSummonerScreen" component={SearchSummonerScreen} />
-            <Stack.Screen name="SummonerMatchesScreen" component={SummonerMatchesScreen} />
+            <Stack.Screen name="MatchesScreen" component={MatchesScreen} />
         </Stack.Navigator>
     )
 }

@@ -9,9 +9,9 @@ import { useMatches } from '../hooks/useMatches';
 import { RootStackParams } from '../navigator/Navigator';
 import { styles as stylesGlobal, lightTheme } from '../themes/appTheme';
 
-interface Props extends StackScreenProps<RootStackParams, 'SummonerMatchesScreen'> { }
+interface Props extends StackScreenProps<RootStackParams, 'MatchesScreen'> { }
 
-export const SummonerMatchesScreen = ({ navigation, route }: Props) => {
+export const MatchesScreen = ({ navigation, route }: Props) => {
     const { summoner, server, removeSummoner } = useContext(SummonerContext);
 
     const { isLoading, loadMatches, matchesList } = useMatches();
