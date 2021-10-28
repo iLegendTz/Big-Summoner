@@ -95,10 +95,6 @@ export const MatchPreview = ({ match, summoner, navigation }: Props) => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        padding: 10,
-        elevation: 1,
-    },
     champIcon: {
         width: 50,
         height: 50,
