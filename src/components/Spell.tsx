@@ -5,10 +5,11 @@ import { useSpell } from '../hooks/useSpell';
 
 interface Props {
     spellKey: number,
-    style?: StyleProp<ImageStyle>;
+    width?: number,
+    height?: number,
 }
 
-export const Spell = ({ spellKey, style = styles.spell }: Props) => {
+export const Spell = ({ spellKey, width = 25, height = 25 }: Props) => {
 
     const { spell, loadSpell } = useSpell();
 
@@ -20,19 +21,17 @@ export const Spell = ({ spellKey, style = styles.spell }: Props) => {
         (spell != undefined)
             ?
             < Image
-                style={style as any}
+                style={{ ...styles.spell, width, height }}
                 source={{ uri: `${baseURL}/image/spell/${spell.image.full}` }
                 }
             />
             :
-            <View style={{ ...style as any }}></View>
+            <View style={{ ...styles.spell, width, height }}></View>
     )
 }
 
 const styles = StyleSheet.create({
     spell: {
-        width: 25,
-        height: 25,
         backgroundColor: 'grey',
         marginRight: 2.5,
         borderRadius: 2,
