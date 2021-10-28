@@ -6,10 +6,11 @@ import { lightTheme } from '../themes/appTheme';
 
 interface Props {
     runeId: number,
-    style?: StyleProp<ImageStyle>;
+    width?: number,
+    height?: number,
 }
 
-export const Rune = ({ runeId, style = styles.rune }: Props) => {
+export const Rune = ({ runeId, width = 25, height = 25 }: Props) => {
     const { rune, loadRune } = useRune();
 
     useEffect(() => {
@@ -20,19 +21,17 @@ export const Rune = ({ runeId, style = styles.rune }: Props) => {
         (rune != undefined)
             ?
             < Image
-                style={style as any}
+                style={{ ...styles.rune, width, height }}
                 source={{ uri: `${baseURL}/image/rune/${rune.icon}` }
                 }
             />
             :
-            <View style={{ ...style as any }}></View>
+            <View style={{ ...styles.rune, width, height }}></View>
     )
 }
 
 const styles = StyleSheet.create({
     rune: {
-        width: 25,
-        height: 25,
         backgroundColor: lightTheme.colors.onBackground,
         marginRight: 2.5,
         borderRadius: 50,
