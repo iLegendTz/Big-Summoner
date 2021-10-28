@@ -4,13 +4,14 @@ import { baseURL } from '../api/dataDragonApi'
 
 interface Props {
     itemId: number,
-    style?: StyleProp<ImageStyle>;
+    width?: number,
+    height?: number,
 }
 
-export const Item = ({ itemId, style = styles.item }: Props) => {
+export const Item = ({ itemId, width = 30, height = 30 }: Props) => {
     return (
         <Image
-            style={style}
+            style={{ ...styles.item, width, height }}
             source={{ uri: `${baseURL}/image/item/${itemId}.png` }}
         />
     )
@@ -18,8 +19,6 @@ export const Item = ({ itemId, style = styles.item }: Props) => {
 
 const styles = StyleSheet.create({
     item: {
-        width: 30,
-        height: 30,
         backgroundColor: 'grey',
         marginRight: 2.5,
         borderRadius: 2,
