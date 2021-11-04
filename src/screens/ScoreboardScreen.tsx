@@ -6,12 +6,11 @@ import { lightTheme, styles as stylesGlobal } from '../themes/appTheme';
 import { ParticipantStats } from '../components/ParticipantStats';
 import { TeamStats } from '../components/TeamStats';
 import { Participant, Team } from '../interfaces/Match';
-import { SummonerContext } from '../context/SummonerContext';
-import { Summoner } from '../interfaces/Summoner';
+import { MatchBottomStackParams } from '../navigator/MatchBottomNavigator';
 
-interface Props extends StackScreenProps<RootStackParams, 'MatchScreen'> { }
+interface Props extends StackScreenProps<MatchBottomStackParams, 'ScoreboardScreen'> { }
 
-export const MatchScreen = ({ route }: Props) => {
+export const ScoreboardScreen = ({ route }: Props) => {
     const { match } = route.params;
 
     const teamsIds = {

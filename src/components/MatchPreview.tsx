@@ -10,13 +10,14 @@ import { MatchResponse, Participant } from '../interfaces/Match';
 import { lightTheme } from '../themes/appTheme';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParams } from '../navigator/Navigator';
+import { MatchBottomStackParams } from '../navigator/MatchBottomNavigator';
 
-interface Props extends StackScreenProps<RootStackParams, 'MatchesScreen'> {
+interface Props {
     summoner: Summoner;
     match: MatchResponse;
 }
 
-export const MatchPreview = ({ match, summoner, navigation }: Props) => {
+export const MatchPreview = ({ match, summoner }: Props) => {
     const [participant, setParticipant] = useState<Participant>();
 
     const [matchCreationDate, setMatchCreationDate] = useState("");
@@ -37,10 +38,7 @@ export const MatchPreview = ({ match, summoner, navigation }: Props) => {
     return (
         (participant !== undefined)
             ?
-            <TouchableOpacity
-                activeOpacity={0.7}
-                onPress={() => { navigation.navigate('MatchScreen', { match: match }) }}
-            >
+            <>
                 <View style={{ flexDirection: 'row' }}>
                     {/* Champion image */}
                     <Image
@@ -85,7 +83,7 @@ export const MatchPreview = ({ match, summoner, navigation }: Props) => {
                         participant.item5,
                         participant.item6]}
                     renderItem={({ item }) => (<Item itemId={item} />)} />
-            </TouchableOpacity>
+            </>
             :
             <ActivityIndicator
                 style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}

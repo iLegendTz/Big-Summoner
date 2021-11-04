@@ -5,12 +5,13 @@ import { SearchSummonerScreen } from '../screens/SearchSummonerScreen';
 import { MatchesScreen } from '../screens/MatchesScreen';
 import { lightTheme } from '../themes/appTheme';
 import { MatchResponse } from '../interfaces/Match';
-import { MatchScreen } from '../screens/MatchScreen';
+import { ScoreboardScreen } from '../screens/ScoreboardScreen';
+import { MatchBottomNavigator } from './MatchBottomNavigator';
 
 export type RootStackParams = {
     SearchSummonerScreen: undefined,
+    MatchBottomNavigator: { match: MatchResponse },
     MatchesScreen: undefined,
-    MatchScreen: { match: MatchResponse }
 }
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -24,8 +25,8 @@ export const Navigator = () => {
             }}
             initialRouteName="SearchSummonerScreen"
         >
-            <Stack.Screen name="MatchScreen" component={MatchScreen} />
             <Stack.Screen name="SearchSummonerScreen" component={SearchSummonerScreen} />
+            <Stack.Screen name="MatchBottomNavigator" component={MatchBottomNavigator} />
             <Stack.Screen name="MatchesScreen" component={MatchesScreen} />
         </Stack.Navigator>
     )

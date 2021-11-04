@@ -1,17 +1,18 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { ActivityIndicator, Image, Text, View, StyleSheet, ScrollView, FlatList } from 'react-native';
+import { ActivityIndicator, Image, Text, View, StyleSheet, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 
 import { MatchPreview } from '../components/MatchPreview';
 import { SummonerInfo } from '../components/SummonerInfo';
 import { SummonerContext } from '../context/SummonerContext';
 import { useMatches } from '../hooks/useMatches';
+import { MatchBottomStackParams } from '../navigator/MatchBottomNavigator';
 import { RootStackParams } from '../navigator/Navigator';
 import { styles as stylesGlobal, lightTheme } from '../themes/appTheme';
 
-interface Props extends StackScreenProps<RootStackParams, 'MatchesScreen'> { }
+interface Props extends StackScreenProps<RootStackParams, 'MatchBottomNavigator'> { }
 
-export const MatchesScreen = ({ navigation, route }: Props) => {
+export const MatchesScreen = ({ navigation }: Props) => {
     const { summoner, server, removeSummoner } = useContext(SummonerContext);
 
     const { isLoading, loadMatches, matchesList } = useMatches();
@@ -44,7 +45,12 @@ export const MatchesScreen = ({ navigation, route }: Props) => {
                         data={matchesList}
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => (
-                            < MatchPreview match={item} summoner={summoner} navigation={navigation} route={route} />
+                            <TouchableOpacity
+                                activeOpacity={0.7}
+                                onPress={() => { navigation.navigate('MatchBottomNavigator', { match: item }); }}
+                            >
+                                < MatchPreview match={item} summoner={summoner} />
+                            </TouchableOpacity>
                         )}
                         keyExtractor={(item) => item.info.gameId.toString()}
 
